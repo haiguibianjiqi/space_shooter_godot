@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://be5tqgnlk2kyr"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/small_spaceship.gd" id="1_f4md0"]
+[ext_resource type="Texture2D" uid="uid://dfe2i5mflrojr" path="res://Assets/Sprites/all_items.png" id="1_sjo4k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_illfh"]
+radius = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tldy"]
+atlas = ExtResource("1_sjo4k")
+region = Rect2(3.21878, 38.0003, 8.24296, 8.78348)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_53tbs"]
+radius = 5.0
+
+[node name="small_spaceship" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_f4md0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_illfh")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = SubResource("AtlasTexture_6tldy")
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_53tbs")
+debug_color = Color(0.890196, 0, 0, 0.419608)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

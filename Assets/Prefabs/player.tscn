@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cokoq3yrg3x2x"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_nfcc7"]
+[ext_resource type="Texture2D" uid="uid://dfe2i5mflrojr" path="res://Assets/Sprites/all_items.png" id="1_smrr1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jtxhf"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce35v"]
+atlas = ExtResource("1_smrr1")
+region = Rect2(1.64801, 2.43218, 10.6753, 12.1617)
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(5, 5)
+script = ExtResource("1_nfcc7")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jtxhf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ce35v")
+
+[node name="left_gun" type="Marker2D" parent="."]
+position = Vector2(-2.2, -6)
+
+[node name="right_gun" type="Marker2D" parent="."]
+position = Vector2(2.8, -6)

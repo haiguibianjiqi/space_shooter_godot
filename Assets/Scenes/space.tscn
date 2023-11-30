@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://cr7keyl6whgak"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/space.gd" id="1_emidl"]
+[ext_resource type="PackedScene" uid="uid://cokoq3yrg3x2x" path="res://Assets/Prefabs/player.tscn" id="1_uf2hb"]
+[ext_resource type="PackedScene" uid="uid://be5tqgnlk2kyr" path="res://Assets/Prefabs/small_spaceship.tscn" id="2_1qbpl"]
+[ext_resource type="PackedScene" uid="uid://1qojjay37myv" path="res://Assets/Prefabs/player_space_bullet.tscn" id="2_1xa8i"]
+[ext_resource type="PackedScene" uid="uid://t7cnfcn5pkqu" path="res://Assets/Prefabs/larger_spaceship.tscn" id="3_5u3sv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fo2s"]
+size = Vector2(78, 1299)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vt8f"]
+size = Vector2(793.5, 66.5)
+
+[node name="Space" type="Node2D"]
+script = ExtResource("1_emidl")
+smallEnemySpaceShips = ExtResource("2_1qbpl")
+LargeEnemySpaceShips = ExtResource("3_5u3sv")
+
+[node name="Player" parent="." instance=ExtResource("1_uf2hb")]
+position = Vector2(334, 1192)
+bulletScene = ExtResource("2_1xa8i")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 720
+limit_bottom = 1280
+limit_smoothed = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-30, 639.5)
+shape = SubResource("RectangleShape2D_4fo2s")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(757, 646)
+shape = SubResource("RectangleShape2D_4fo2s")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(383, -37)
+shape = SubResource("RectangleShape2D_4vt8f")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(383, -37)
+shape = SubResource("RectangleShape2D_4vt8f")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(368, 1306)
+shape = SubResource("RectangleShape2D_4vt8f")
+
+[node name="SmallEnemyTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="LargeEneemyTimer" type="Timer" parent="."]
+wait_time = 5.5
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 652.0
+offset_top = 1238.0
+offset_right = -28.0
+offset_bottom = -16.0
+text = "0
+"
+
+[connection signal="timeout" from="SmallEnemyTimer" to="." method="_on_small_enemy_timer_timeout"]
+[connection signal="timeout" from="LargeEneemyTimer" to="." method="_on_large_eneemy_timer_timeout"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://t7cnfcn5pkqu"]
+
+[ext_resource type="Texture2D" uid="uid://dfe2i5mflrojr" path="res://Assets/Sprites/all_items.png" id="1_ke0eg"]
+[ext_resource type="Script" path="res://Assets/Scripts/larger_spaceship.gd" id="1_sswdn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kkccs"]
+radius = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyxfd"]
+atlas = ExtResource("1_ke0eg")
+region = Rect2(19.4344, 35.0274, 9.05375, 12.0266)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jp5vg"]
+radius = 4.33333
+height = 11.3333
+
+[node name="Larger_Spaceship" type="CharacterBody2D" groups=["Enemy"]]
+rotation = 3.14159
+scale = Vector2(6, 6)
+script = ExtResource("1_sswdn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kkccs")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_yyxfd")
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_jp5vg")
+debug_color = Color(0.984314, 0, 0.329412, 0.419608)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
